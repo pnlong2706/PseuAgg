@@ -1,0 +1,22 @@
+task: "mnist"                           ## Current: 'mnist' or 'fashion-mnist'
+data_path: "./data/mnist/"
+model_type: "simple"                    ## For mnist, fashionmnist: 'simple' or 'conv', you can implement more as you wish
+batch_size: 128
+test_batch_size: 1000
+epochs: 160
+lr: 0.9
+gamma: 0.8
+alpha_dis: 0.3
+client_num: 10
+device: "cuda"
+seed: 1
+client_train_log: False
+log_interval: 5
+save_model: False
+save_path: "./result/"
+topo: "ring"
+result_file: "result.json"
+overwrite_res: True
+agg: True
+agg_epoch: 2
+pseu_agg: False
