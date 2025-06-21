@@ -11,7 +11,7 @@ client_num: 10
 device: "cuda"
 seed: 1
 client_train_log: False
-log_interval: 5
+log_interval: 4
 save_model: False
 save_path: "./result/"
 topo: "ring"

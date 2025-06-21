@@ -43,6 +43,7 @@ class DFL:
     def training(self, max_epoch = -1):
         res = [self.args,]
         client_num = self.args['client_num']
+        max_accu_all = 0
 
         if max_epoch == -1:
             max_epoch = self.args['epochs']
@@ -73,11 +74,14 @@ class DFL:
 
             avg_loss /= client_num
             avg_test_loss /= client_num
+            max_accu_all = max(max_accu_all, max_accu)
             if epoch%self.args['log_interval'] == 0:
                 print(f"Epoch {epoch:<3}. Average training loss: {avg_loss:.4f}. ", end="")
                 print(f"Average testing loss: {avg_test_loss:.4f}. Max accuracy: {max_accu}")
 
             res.append({'train_loss':avg_loss, 'test_loss': avg_test_loss, 'max_accu': max_accu})
+
+        print("MAX ACCURACY:", max_accu_all)
 
         res_path = self.args['save_path'] + self.args['result_file']
         if os.path.exists(self.args['save_path']):
