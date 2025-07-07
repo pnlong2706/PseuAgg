@@ -19,8 +19,8 @@ class DFL:
             train_path = self.args['data_path'] + 'mnist_train.csv'
             test_path = self.args['data_path'] + 'mnist_test.csv'
         elif task_name == 'fashion-mnist':
-            train_path = self.args['data_path'] + 'fashion-mnist_test.csv'
-            test_path = self.args['data_path'] + 'fashion-mnist_train.csv'
+            train_path = self.args['data_path'] + 'fashion-mnist_train.csv'
+            test_path = self.args['data_path'] + 'fashion-mnist_test.csv'
         elif task_name == 'cifar10':
             train_path = self.args['data_path']
             test_path = self.args['data_path']
