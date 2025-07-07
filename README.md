@@ -29,7 +29,7 @@ Default configurations are specified in `cfg/config.yaml`. These include default
 -   `overwrite_res`: bool (overwrite in case `result_file` is already exist).
 -   `agg`: bool (perfrom aggregation step or not).
 -   `agg_epoch`: integer (perform aggregation step after `agg_epoch` epochs).
--   `pseu_agg`: False (perfrom pseu-agg or not).
+-   `pseu_agg`: False (perform pseu-agg or not).
 
 
 ---

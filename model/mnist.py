@@ -4,9 +4,9 @@ import torch.nn.functional as F
 
 
 class MnistSimpleModel(nn.Module):
-    def __init__(self):
+    def __init__(self, in_channels = 1, H = 28, W = 28):
         super(MnistSimpleModel, self).__init__()
-        self.fc1 = nn.Linear(28*28, 128)
+        self.fc1 = nn.Linear(in_channels * H * W, 128)
         self.fc2 = nn.Linear(128, 10)
         # self.dropout2 = nn.Dropout(0.2)
 
