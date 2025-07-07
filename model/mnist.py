@@ -22,20 +22,19 @@ class MnistSimpleModel(nn.Module):
 ### Cre: https://github.com/pytorch/examples/blob/main/mnist/main.py
 ### Pretty simmilar to model in Decentralized Federated Averaging paper
 ### Total params: 1,199,882
-class MnistConv(nn.Module):
-    def __init__(self):
-        super(MnistConv, self).__init__()
-        self.conv1 = nn.Conv2d(1, 32, 3, 1)
+class ConvModel(nn.Module):
+    def __init__(self, in_channels = 1, H = 28, W = 28):
+        super(ConvModel, self).__init__()
+        self.conv1 = nn.Conv2d(in_channels, 32, 3, 1)
         self.conv2 = nn.Conv2d(32, 64, 3, 1)
         self.dropout1 = nn.Dropout(0.2)
         self.dropout2 = nn.Dropout(0.5)
-        self.fc1 = nn.Linear(9216, 128)
+        self.fc1 = nn.Linear((H-4)//2 * (W-4)//2 * 64, 128)
         self.fc2 = nn.Linear(128, 10)
 
     def forward(self, x):
         if len(x.shape) == 3:
             x = torch.reshape(x, (x.shape[0],1,x.shape[1],x.shape[2]))
-
         x = self.conv1(x)
         x = F.relu(x)
         x = self.conv2(x)
@@ -49,10 +48,3 @@ class MnistConv(nn.Module):
         x = self.fc2(x)
         output = F.log_softmax(x, dim=1)
         return output
-
-def create_mnist_model(model_type = "simple"):
-    if model_type == "simple":
-        return MnistSimpleModel()
-    if model_type == "conv":
-        return MnistConv()
-    raise SyntaxError("In create_mnist_model(): model_type is not approriate")

@@ -21,15 +21,19 @@ def adj_list_gen(num_nodes = 20, topo = "ring"):
         return star_graph(num_nodes)
     elif topo == "random":
         return random_graph(num_nodes)
+    elif topo == "dis":
+        return disconnected_graph(num_nodes)
     else:
-        raise SyntaxError("In adj_list_gen(): topo is not approriate")
+        raise ValueError("In adj_list_gen(): topo is not approriate")
 
 
 def fully_connected_graph(num_nodes = 20):
     return [[j for j in range(num_nodes) if j != i] for i in range(num_nodes)]
 
+
 def ring_graph(num_nodes = 20):
     return [[(i+1)%num_nodes,(i+num_nodes-1)%num_nodes] for i in range(num_nodes)]
+
 
 def star_graph(num_nodes = 20):
     ### Center node is 0
@@ -37,6 +41,7 @@ def star_graph(num_nodes = 20):
     for i in range(1, num_nodes):
         ls.append([0])
     return ls
+
 
 def random_graph(num_nodes = 20, prob = 0.5):
     # Simple Random scheme:
@@ -60,6 +65,11 @@ def random_graph(num_nodes = 20, prob = 0.5):
             ls[j].append(i)
 
     return ls
+
+
+def disconnected_graph(num_nodes = 20):
+    return [[] for i in range(num_nodes)]
+
 
 def adj_list_to_matrix(adj_list):
     # Convert Adj list to 2D torch tensor

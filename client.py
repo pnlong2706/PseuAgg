@@ -27,12 +27,14 @@ class Client():
         self.data_len = len(train_dataset)
 
         ### Directly modify optimizer and scheduler here
+        # self.optim = optim.Adam(self.model.parameters(), lr=kargs['lr'])
+        # self.scheduler = StepLR(self.optim, step_size=10, gamma=kargs['gamma'])
         self.optim = optim.Adadelta(self.model.parameters(), lr=kargs['lr'])
         self.scheduler = StepLR(self.optim, step_size=4, gamma=kargs['gamma'])
 
         ### For pseudo aggregation
         self.enable_pseu_agg = kargs['pseu_agg']
-        self.beta_agg = 0.98
+        self.beta_agg = 1.0
         self.w_agg = 1.0
         self.list_model_neighbor = [] # List of state_dict, Ini in create_client !!!
         self.ema_delta = [] ## Ini in create_client !!!

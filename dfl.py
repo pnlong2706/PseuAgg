@@ -1,5 +1,6 @@
 import json
 import os
+import time
 import torch
 import matplotlib.pyplot as plt
 from utils.client import create_clients
@@ -20,28 +21,34 @@ class DFL:
         elif task_name == 'fashion-mnist':
             train_path = self.args['data_path'] + 'fashion-mnist_test.csv'
             test_path = self.args['data_path'] + 'fashion-mnist_train.csv'
+        elif task_name == 'cifar10':
+            train_path = self.args['data_path']
+            test_path = self.args['data_path']
         else:
-            raise SyntaxError("Task name is not approriate!")
+            raise ValueError("Task name is not approriate!")
 
         alpha_dis = self.args['alpha_dis']
         client_num = self.args['client_num']
 
-        self.clients = create_clients(train_path,
-                                 test_path,
-                                 alpha_dis,
-                                 model_type = self.args['model_type'],
-                                 client_num = client_num,
-                                 task = task_name,
-                                 topo = self.args['topo'],
-                                 batch_size = self.args['batch_size'],
-                                 lr = self.args['lr'],
-                                 gamma = self.args['gamma'],
-                                 device = device,
-                                 pseu_agg = self.args['pseu_agg'])
+        self.clients = create_clients(
+                train_path,
+                test_path,
+                alpha_dis,
+                model_type = self.args['model_type'],
+                client_num = client_num,
+                task = task_name,
+                topo = self.args['topo'],
+                batch_size = self.args['batch_size'],
+                lr = self.args['lr'],
+                gamma = self.args['gamma'],
+                device = device,
+                pseu_agg = self.args['pseu_agg']
+        )
 
 
     def training(self, max_epoch = -1):
         res = [self.args,]
+        start_time = time.time()
         client_num = self.args['client_num']
         max_accu_all = 0
 
@@ -79,7 +86,8 @@ class DFL:
                 print(f"Epoch {epoch:<3}. Average training loss: {avg_loss:.4f}. ", end="")
                 print(f"Average testing loss: {avg_test_loss:.4f}. Max accuracy: {max_accu}")
 
-            res.append({'train_loss':avg_loss, 'test_loss': avg_test_loss, 'max_accu': max_accu})
+            res.append({'time': (time.time() - start_time), 'train_loss':avg_loss,
+                'test_loss': avg_test_loss, 'max_accu': max_accu})
 
         print("MAX ACCURACY:", max_accu_all)
 
