@@ -3,9 +3,9 @@ data_path: "./data/mnist/"
 model_type: "simple"                    ## For mnist, fashionmnist: 'simple' or 'conv', you can implement more as you wish
 batch_size: 128
 test_batch_size: 1000
-epochs: 160
+epochs: 180
 lr: 0.9
-gamma: 0.8
+gamma: 0.92
 alpha_dis: 0.3
 client_num: 10
 device: "cuda"

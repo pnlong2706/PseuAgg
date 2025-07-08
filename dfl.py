@@ -84,7 +84,8 @@ class DFL:
             max_accu_all = max(max_accu_all, max_accu)
             if epoch%self.args['log_interval'] == 0:
                 print(f"Epoch {epoch:<3}. Average training loss: {avg_loss:.4f}. ", end="")
-                print(f"Average testing loss: {avg_test_loss:.4f}. Max accuracy: {max_accu}")
+                print(f"Average testing loss: {avg_test_loss:.4f}.", end="")
+                print(f"Max accuracy: {max_accu} ~ {max_accu_all}")
 
             res.append({'time': (time.time() - start_time), 'train_loss':avg_loss,
                 'test_loss': avg_test_loss, 'max_accu': max_accu})

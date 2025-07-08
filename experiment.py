@@ -34,3 +34,9 @@ def experiment(name, args, **kwargs):
 
     print("\n------------------------------")
 
+def experiment_with_pseu(name, args, **kwargs):
+    kwargs['pseu_agg'] = False
+    experiment(name, args, **kwargs)
+    kwargs['pseu_agg'] = True
+    kwargs['result_file'] = kwargs['result_file'][:-5] + "_pseu.json"
+    experiment(name + " with Pseudo", args, **kwargs)
